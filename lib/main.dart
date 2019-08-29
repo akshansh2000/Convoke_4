@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'package:qrcode_reader/qrcode_reader.dart';
 
 main() => runApp(
       MaterialApp(
@@ -7,21 +9,19 @@ main() => runApp(
       ),
     );
 
-class ConvokeApp extends StatelessWidget {
-  Widget customContainer(BuildContext context, Color color) {
-    return Center(
-      child: Container(
-        width: 400,
-        height: 400,
-        color: color,
-      ),
-    );
-  }
+class ConvokeApp extends StatefulWidget {
+  @override
+  _ConvokeAppState createState() => _ConvokeAppState();
+}
+
+class _ConvokeAppState extends State<ConvokeApp> {
+  Future<String> qrCodeResult;
+  int tabNumber;
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 5,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           elevation: 10,
@@ -29,26 +29,45 @@ class ConvokeApp extends StatelessWidget {
           title: Text("Convoke 4.0"),
           backgroundColor: Colors.black,
           bottom: TabBar(
+            isScrollable: true,
+            onTap: (index) => tabNumber = index,
             indicatorColor: Colors.redAccent[700],
             labelStyle: TextStyle(fontWeight: FontWeight.w900),
             unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w300),
             tabs: <Widget>[
-              Tab(text: "Lorem"),
-              Tab(text: "Ipsum"),
-              Tab(text: "Dolor"),
-              Tab(text: "Sit"),
-              Tab(text: "Amet"),
+              Tab(text: "Evening Snacks"),
+              Tab(text: "Dinner"),
+              Tab(text: "Breakfast"),
+              Tab(text: "Lunch"),
             ],
           ),
         ),
         backgroundColor: Colors.grey[900],
-        body: TabBarView(
+        body: Stack(
           children: <Widget>[
-            customContainer(context, Colors.indigo),
-            customContainer(context, Colors.blue),
-            customContainer(context, Colors.green),
-            customContainer(context, Colors.yellow),
-            customContainer(context, Colors.teal),
+            TabBarView(
+              children: <Widget>[
+                Container(),
+                Container(),
+                Container(),
+                Container(),
+              ],
+            ),
+            Center(
+              child: Container(
+                width: 150,
+                height: 150,
+                child: FloatingActionButton(
+                  child: Icon(
+                    Icons.add_a_photo,
+                    size: 70,
+                  ),
+                  onPressed: () => setState(() {
+                    qrCodeResult = QRCodeReader().scan();
+                  }),
+                ),
+              ),
+            ),
           ],
         ),
       ),
