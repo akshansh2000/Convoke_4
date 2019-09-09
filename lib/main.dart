@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 import 'package:qrcode_reader/qrcode_reader.dart';
 
 main() => runApp(
@@ -15,11 +14,12 @@ class ConvokeApp extends StatefulWidget {
 }
 
 class _ConvokeAppState extends State<ConvokeApp> {
-  Future<String> qrCodeResult;
+  String qrCodeResult;
   int tabNumber;
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -62,12 +62,25 @@ class _ConvokeAppState extends State<ConvokeApp> {
                     Icons.add_a_photo,
                     size: 70,
                   ),
-                  onPressed: () => setState(() {
-                    qrCodeResult = QRCodeReader().scan();
+                  onPressed: () => setState(() async {
+                    qrCodeResult = await QRCodeReader().scan();
                   }),
                 ),
               ),
             ),
+            qrCodeResult == null
+                ? Container()
+                : Align(
+                    alignment: Alignment(0, 0.9),
+                    child: Text(
+                      qrCodeResult,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 50,
+                      ),
+                    ),
+                  ),
           ],
         ),
       ),
