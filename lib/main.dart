@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:convoke_4/firebase_handler.dart';
 import 'package:qrcode_reader/qrcode_reader.dart';
 
 main() => runApp(
@@ -62,25 +64,38 @@ class _ConvokeAppState extends State<ConvokeApp> {
                     Icons.add_a_photo,
                     size: 70,
                   ),
-                  onPressed: () => setState(() async {
-                    qrCodeResult = await QRCodeReader().scan();
-                  }),
+                  onPressed: () => setState(
+                    () async {
+                      qrCodeResult = await QRCodeReader().scan();
+                      qrCodeResult == null
+                          ? showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  backgroundColor: Colors.black,
+                                  title: Center(
+                                    child: Text(
+                                      "QR Scan Failed",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            )
+                          : Navigator.of(context).push(
+                              CupertinoPageRoute(
+                                builder: (builder) => FirebaseHandler(
+                                  textResult: qrCodeResult,
+                                ),
+                              ),
+                            );
+                    },
+                  ),
                 ),
               ),
             ),
-            qrCodeResult == null
-                ? Container()
-                : Align(
-                    alignment: Alignment(0, 0.9),
-                    child: Text(
-                      qrCodeResult,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 50,
-                      ),
-                    ),
-                  ),
           ],
         ),
       ),
