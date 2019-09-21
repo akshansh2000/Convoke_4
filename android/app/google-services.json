@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "375617969113",
+    "firebase_url": "https://convoke-four.firebaseio.com",
+    "project_id": "convoke-four",
+    "storage_bucket": "convoke-four.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375617969113:android:9c84a60168b2fd9b",
+        "android_client_info": {
+          "package_name": "com.example.convoke_4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "375617969113-k6egbg0igaqvo2ovqi630ntl93pk8shv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEXB65qp5_wYI_8kyHhLt6QJ0C2p9UVi8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "375617969113-k6egbg0igaqvo2ovqi630ntl93pk8shv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
