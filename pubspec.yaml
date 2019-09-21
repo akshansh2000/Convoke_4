@@ -25,6 +25,8 @@ dependencies:
   cupertino_icons: ^0.1.2
 
   qrcode_reader:
+  firebase_core:
+  firebase_storage:
 
 dev_dependencies:
   flutter_test:
