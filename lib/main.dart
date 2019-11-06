@@ -11,6 +11,8 @@ main() => runApp(
     );
 
 class ConvokeApp extends StatefulWidget {
+  int counter = 0;
+
   @override
   _ConvokeAppState createState() => _ConvokeAppState();
 }
@@ -115,6 +117,13 @@ class _ConvokeAppState extends State<ConvokeApp>
 
   checkDatabase() {
     FirebaseHandler firebaseHandler = FirebaseHandler(
-        emailId: qrCodeResult, mealType: mealTypes[customTabController.index]);
+      emailId: qrCodeResult,
+      mealType: mealTypes[customTabController.index],
+      counter: widget.counter.toString(),
+    );
+
+    bool didAddValue = firebaseHandler.checkDatabase();
+
+    if (didAddValue) widget.counter++;
   }
 }
