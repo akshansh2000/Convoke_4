@@ -51,7 +51,10 @@ class FirebaseHandler {
   Future<int> getLastCounterValue() async {
     int value;
     await databaseReference.once().then((DataSnapshot snap) {
-      value = snap.value.length;
+      if (snap.value != null)
+        value = snap.value.length;
+      else
+        value = 0;
     });
 
     return value;
