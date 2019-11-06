@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:convoke_4/firebase_handler.dart';
 import 'package:qrcode_reader/qrcode_reader.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 main() => runApp(
       MaterialApp(
@@ -11,8 +12,6 @@ main() => runApp(
     );
 
 class ConvokeApp extends StatefulWidget {
-  int counter = 0;
-
   @override
   _ConvokeAppState createState() => _ConvokeAppState();
 }
@@ -20,9 +19,22 @@ class ConvokeApp extends StatefulWidget {
 class _ConvokeAppState extends State<ConvokeApp>
     with SingleTickerProviderStateMixin {
   String qrCodeResult;
-  int tabNumber;
+  int tabNumber, counter;
   TabController customTabController;
   List<String> mealTypes = ["Evening Snacks", "Dinner", "Breakfast", "Lunch"];
+  SharedPreferences sharedPreferences;
+
+  counterInit() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    if (sharedPreferences.containsKey("counter"))
+      counter = sharedPreferences.getInt("counter");
+    else
+      sharedPreferences.setInt("counter", 0);
+  }
+
+  _ConvokeAppState() {
+    counterInit();
+  }
 
   @override
   void initState() {
@@ -119,11 +131,14 @@ class _ConvokeAppState extends State<ConvokeApp>
     FirebaseHandler firebaseHandler = FirebaseHandler(
       emailId: qrCodeResult,
       mealType: mealTypes[customTabController.index],
-      counter: widget.counter.toString(),
+      counter: counter.toString(),
     );
 
     bool didAddValue = firebaseHandler.checkDatabase();
 
-    if (didAddValue) widget.counter++;
+    if (didAddValue) {
+      counter++;
+      sharedPreferences.setInt("counter", counter);
+    }
   }
 }

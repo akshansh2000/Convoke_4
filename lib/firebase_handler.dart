@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class FirebaseHandler {
-  FirebaseHandler({@required this.emailId, @required this.mealType, @required this.counter});
+  FirebaseHandler({
+    @required this.emailId,
+    @required this.mealType,
+    @required this.counter,
+  });
+
   final String emailId;
   final String mealType;
   final String counter;
@@ -10,5 +15,11 @@ class FirebaseHandler {
   final DatabaseReference databaseReference =
       FirebaseDatabase.instance.reference();
 
-  bool checkDatabase() {}
+  bool checkDatabase() {
+    databaseReference.child(counter).set({
+      "emailId": emailId,
+      "meal type": mealType,
+    });
+    return true;
+  }
 }

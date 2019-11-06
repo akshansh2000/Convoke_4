@@ -26,6 +26,7 @@ dependencies:
 
   qrcode_reader:
   firebase_database:
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:
