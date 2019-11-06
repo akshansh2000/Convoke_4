@@ -19,7 +19,8 @@ class ConvokeApp extends StatefulWidget {
 class _ConvokeAppState extends State<ConvokeApp>
     with SingleTickerProviderStateMixin {
   String qrCodeResult;
-  int tabNumber, counter;
+  int tabNumber;
+  static int counter;
   TabController customTabController;
   List<String> mealTypes = ["Evening Snacks", "Dinner", "Breakfast", "Lunch"];
   SharedPreferences sharedPreferences;
@@ -126,14 +127,17 @@ class _ConvokeAppState extends State<ConvokeApp>
     );
   }
 
-  checkDatabase() {
+  checkDatabase() async {
     FirebaseHandler firebaseHandler = FirebaseHandler(
       emailId: qrCodeResult,
       mealType: mealTypes[customTabController.index],
       counter: counter.toString(),
     );
 
-    bool didAddValue = firebaseHandler.checkDatabase();
+    counter = await firebaseHandler.getLastCounterValue();
+    sharedPreferences.setInt("counter", counter);
+
+    bool didAddValue = await firebaseHandler.checkDatabase();
 
     if (didAddValue) {
       counter++;
