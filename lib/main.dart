@@ -137,11 +137,26 @@ class _ConvokeAppState extends State<ConvokeApp>
     counter = await firebaseHandler.getLastCounterValue();
     sharedPreferences.setInt("counter", counter);
 
-    bool didAddValue = await firebaseHandler.checkDatabase();
+    bool isAlreadyPresent = await firebaseHandler.checkDatabase();
+    print(isAlreadyPresent);
 
-    if (didAddValue) {
-      counter++;
-      sharedPreferences.setInt("counter", counter);
+    if (isAlreadyPresent) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Colors.black,
+            title: Center(
+              child: Text(
+                "REJECTED",
+                style: TextStyle(
+                  color: Colors.redAccent,
+                ),
+              ),
+            ),
+          );
+        },
+      );
     }
   }
 }
