@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class FirebaseHandler extends StatefulWidget {
-  FirebaseHandler({Key key, @required this.textResult}) : super(key: key);
+  FirebaseHandler({Key key, @required this.textResult, @required this.mealType}) : super(key: key);
   final String textResult;
+  final String mealType;
 
   _FirebaseHandlerState createState() => _FirebaseHandlerState();
 }

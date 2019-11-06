@@ -20,6 +20,7 @@ class _ConvokeAppState extends State<ConvokeApp>
   String qrCodeResult;
   int tabNumber;
   TabController customTabController;
+  List<String> mealTypes = ["Evening Snacks", "Dinner", "Breakfast", "Lunch"];
 
   @override
   void initState() {
@@ -35,7 +36,6 @@ class _ConvokeAppState extends State<ConvokeApp>
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
     return Scaffold(
       appBar: AppBar(
         elevation: 10,
@@ -45,7 +45,11 @@ class _ConvokeAppState extends State<ConvokeApp>
         bottom: TabBar(
           controller: customTabController,
           isScrollable: true,
-          onTap: (index) => tabNumber = index,
+          onTap: (index) {
+            setState(() {
+              tabNumber = index;
+            });
+          },
           indicatorColor: Colors.redAccent[700],
           labelStyle: TextStyle(fontWeight: FontWeight.w900),
           unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w300),
@@ -102,6 +106,7 @@ class _ConvokeAppState extends State<ConvokeApp>
                             CupertinoPageRoute(
                               builder: (builder) => FirebaseHandler(
                                 textResult: qrCodeResult,
+                                mealType: mealTypes[customTabController.index],
                               ),
                             ),
                           );
