@@ -102,14 +102,7 @@ class _ConvokeAppState extends State<ConvokeApp>
                               );
                             },
                           )
-                        : Navigator.of(context).push(
-                            CupertinoPageRoute(
-                              builder: (builder) => FirebaseHandler(
-                                textResult: qrCodeResult,
-                                mealType: mealTypes[customTabController.index],
-                              ),
-                            ),
-                          );
+                        : checkDatabase();
                   },
                 ),
               ),
@@ -118,5 +111,10 @@ class _ConvokeAppState extends State<ConvokeApp>
         ],
       ),
     );
+  }
+
+  checkDatabase() {
+    FirebaseHandler firebaseHandler = FirebaseHandler(
+        emailId: qrCodeResult, mealType: mealTypes[customTabController.index]);
   }
 }

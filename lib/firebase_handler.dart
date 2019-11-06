@@ -1,31 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-class FirebaseHandler extends StatefulWidget {
-  FirebaseHandler({Key key, @required this.textResult, @required this.mealType})
-      : super(key: key);
-  final String textResult;
+class FirebaseHandler {
+  FirebaseHandler({@required this.emailId, @required this.mealType});
+  final String emailId;
   final String mealType;
 
-  _FirebaseHandlerState createState() => _FirebaseHandlerState();
-}
-
-class _FirebaseHandlerState extends State<FirebaseHandler> {
   final DatabaseReference databaseReference =
       FirebaseDatabase.instance.reference();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Text(
-          widget.textResult,
-          style: TextStyle(
-            fontSize: 50,
-          ),
-        ),
-      ),
-    );
-  }
 }
