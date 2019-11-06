@@ -25,10 +25,6 @@ class FirebaseHandler {
     if (int.parse(counter) < prefs.getInt("counter"))
       counter = prefs.getInt("counter").toString();
 
-    // await databaseReference.child("1/emailId").once().then((DataSnapshot snap) {
-    //   print(snap.value);
-    // });
-
     for (int i = 0; i <= int.parse(counter); i++) {
       String tempEmailId, tempMealType;
 
@@ -59,5 +55,12 @@ class FirebaseHandler {
     });
 
     return value;
+  }
+
+  setDetails() async {
+    databaseReference.child(counter).set({
+      "emailId": emailId,
+      "meal type": mealType,
+    });
   }
 }
