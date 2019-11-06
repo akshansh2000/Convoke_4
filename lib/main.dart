@@ -140,23 +140,25 @@ class _ConvokeAppState extends State<ConvokeApp>
     bool isAlreadyPresent = await firebaseHandler.checkDatabase();
     print(isAlreadyPresent);
 
-    if (isAlreadyPresent) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            backgroundColor: Colors.black,
-            title: Center(
-              child: Text(
-                "REJECTED",
-                style: TextStyle(
-                  color: Colors.redAccent,
-                ),
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.black,
+          title: Center(
+            child: Text(
+              (isAlreadyPresent) ? "REJECTED" : "ACCEPTED",
+              style: TextStyle(
+                color:
+                    (isAlreadyPresent) ? Colors.redAccent : Colors.greenAccent,
+                fontSize: 40,
               ),
             ),
-          );
-        },
-      );
-    }
+          ),
+        );
+      },
+    );
+
+    if (!isAlreadyPresent) firebaseHandler.setDetails();
   }
 }
