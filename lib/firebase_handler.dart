@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class FirebaseHandler {
   FirebaseHandler({
@@ -14,16 +13,9 @@ class FirebaseHandler {
   String counter;
 
   final databaseReference = FirebaseDatabase.instance.reference();
-  SharedPreferences prefs;
-
-  initial() async {
-    prefs = await SharedPreferences.getInstance();
-  }
 
   Future<bool> checkDatabase() async {
-    await initial();
-    if (int.parse(counter) < prefs.getInt("counter"))
-      counter = prefs.getInt("counter").toString();
+    counter = (await getLastCounterValue()).toString();
 
     for (int i = 0; i <= int.parse(counter); i++) {
       String tempEmailId, tempMealType;
