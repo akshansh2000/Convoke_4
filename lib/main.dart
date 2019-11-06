@@ -28,18 +28,17 @@ class _ConvokeAppState extends State<ConvokeApp>
     sharedPreferences = await SharedPreferences.getInstance();
     if (sharedPreferences.containsKey("counter"))
       counter = sharedPreferences.getInt("counter");
-    else
+    else {
+      counter = 0;
       sharedPreferences.setInt("counter", 0);
-  }
-
-  _ConvokeAppState() {
-    counterInit();
+    }
   }
 
   @override
   void initState() {
     super.initState();
     customTabController = TabController(vsync: this, length: 4);
+    counterInit();
   }
 
   @override

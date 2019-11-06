@@ -12,8 +12,7 @@ class FirebaseHandler {
   final String mealType;
   final String counter;
 
-  final DatabaseReference databaseReference =
-      FirebaseDatabase.instance.reference();
+  final databaseReference = FirebaseDatabase.instance.reference();
 
   bool checkDatabase() {
     databaseReference.child(counter).set({
